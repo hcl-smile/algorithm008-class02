@@ -25,7 +25,7 @@ var maxArea = function (height) {
 
   while (i < j) {
     let min = Math.min(height[i], height[j]);
-    let areas = min * Math.abs(i - j);
+    let areas = min * (j - i);
 
     max = Math.max(max, areas);
 
