@@ -47,3 +47,36 @@ var getHint = function (secret, guess) {
 
   return `${countb}A${countc}B`;
 };
+
+/* 第二种方法
+ * 解题思路：map初始化数字值为0
+ * 1.创建一个map用来存储0-9数字项，默认值为0
+ * 2.假如值和索引都相等是得A加1，
+ * 3.否则枚举map[secret[i]]，和map[guess[i]]
+ * 4.map[secret[i]]加1，map[guess[i]]减1
+ * 5.返回结果
+ *
+ */
+
+/**
+ * @param {string} secret
+ * @param {string} guess
+ * @return {string}
+ */
+function getHint(secret, guess) {
+  var map = {};
+  var A = 0;
+  var B = 0;
+  for (var i = 0; i < 10; i++) map[i] = 0;
+  for (i = 0; i < secret.length; i++) {
+    if (secret[i] === guess[i]) A++;
+    else {
+      map[secret[i]]++;
+      B += map[secret[i]] <= 0 ? 1 : 0;
+      map[guess[i]]--;
+      B += map[guess[i]] >= 0 ? 1 : 0;
+    }
+  }
+
+  return A + "A" + B + "B";
+}
